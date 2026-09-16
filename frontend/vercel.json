@@ -1,0 +1,4 @@
+{
+  "buildCommand": "node node_modules/@craco/craco/dist/bin/craco.js build",
+  "outputDirectory": "build"
+}
