@@ -22,6 +22,7 @@ const FIELDS = [
   { key: "stok_gudang", label: "Stok Gudang", desc: "kode_produk, qty_produk" },
 ];
 
+/* eslint-disable react-hooks/exhaustive-deps */
 export default function AdminPanel() {
   const nav = useNavigate();
   const { logout } = useAuth();
