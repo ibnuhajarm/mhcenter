@@ -54,7 +54,7 @@ export default function AdminPanel() {
       }
     }
   };
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { load(); }, []);
 
   const save = async () => {
     setBusy(true);
