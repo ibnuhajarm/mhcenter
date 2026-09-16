@@ -1,4 +1,6 @@
-from server import app
-from mangum import Mangum
+import sys
+from pathlib import Path
 
-handler = Mangum(app)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from server import app
