@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 10% 3.9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --radius: 0.5rem;
+}
+
+* {
+    @apply border-border;
+}
+
+body {
+    margin: 0;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #F4F4F5;
+    color: #09090B;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Cabinet Grotesk', 'Manrope', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.mono, .tabular {
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+}
+
+.label-caps {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #71717A;
+}
+
+/* Tactile brutalist button shadow */
+.shadow-brutal {
+    box-shadow: 4px 4px 0px 0px #09090B;
+}
+.shadow-brutal-sm {
+    box-shadow: 3px 3px 0px 0px #09090B;
+}
+.shadow-brutal-orange {
+    box-shadow: 4px 4px 0px 0px #E11414;
+}
+
+/* Receipt export style */
+.receipt-paper {
+    background: #FDFBF7;
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 22px,
+        rgba(0,0,0,0.02) 22px,
+        rgba(0,0,0,0.02) 23px
+    );
+    font-family: 'Space Mono', monospace;
+    color: #09090B;
+}
+
+.dashed-divider {
+    border-top: 1.5px dashed #09090B;
+}
+
+/* Number stepper input reset */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Hide scrollbar for horizontal scroll areas but keep function */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

@@ -1,0 +1,32 @@
+{
+  "summary": "Frontend-only retest for stock sync fix and mobile dashboard layout. All checks pass: sales 277 dashboard shows exactly 6 SKUs matching the sheet, no 370068. Penjualan list also shows those 6 SKUs only. Mobile 390x844 Nilai Stok card is full-width (x=16, width=358, right=374 inside 390 viewport) with Rp 399.000 fully visible, and SKU + Total Unit sit in a 2-col row below.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "100%"},
+  "test_credentials": "sales 277 / 12345",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Verified on mobile 390x844. metric-nilai bbox=(16,274.5,358,84.5), metric-sku bbox=(16,371,173,76.5), metric-unit bbox=(201,371,173,76.5). Stock qty testids stock-qty-<kode> all render qty on left. Sales 277 expected 6 SKUs: 315200(3), 315486(12), 370197(5), 410696(1), 410721(2), 410764(2).",
+  "verification_details": {
+    "dashboard_stock_items": [
+      {"kode": "410764", "qty": "2"},
+      {"kode": "410696", "qty": "1"},
+      {"kode": "370197", "qty": "5"},
+      {"kode": "315486", "qty": "12"},
+      {"kode": "315200", "qty": "3"},
+      {"kode": "410721", "qty": "2"}
+    ],
+    "metric_sku": "6",
+    "metric_nilai_text": "Nilai Stok Rp 399.000",
+    "penjualan_codes_present": {"315200": true, "315486": true, "370068": false, "370197": true, "410696": true, "410721": true, "410764": true}
+  }
+}

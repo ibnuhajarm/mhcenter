@@ -1,0 +1,24 @@
+{
+  "summary": "Frontend-only re-test of branding update: logo + 'Mayora United Home' rename across every page. All 7 targeted checks pass end-to-end via Playwright on the public URL (mobile viewport 390x844). Login page shows login-logo and heading 'MAYORA UNITED HOME.' (no 'SALES MONITOR'). After sales login (277/12345), the sticky BrandHeader (data-testid=app-header + data-testid=brand containing logo image + 'Mayora United Home' + 'Field Sales App') is visible at top on /dashboard, /penjualan, and /loading (bounding box y=0, h=62). Admin login page shows admin-login-logo; admin panel (password admin123) shows admin-logo image and text 'Mayora United Home · Admin'. Penjualan flow: added 2x DANCARE (370068), review dialog opens with correct '1 item · 2 unit' and total Rp 185.000, Simpan produces receipt-container containing logo image (alt='Mayora United Home'), the text 'Mayora United Home', NO occurrence of 'Sales Monitor', and btn-download-png is present. Stock for DANCARE remained 2/2 after save (no stock mutation). Loading flow: added 2x BURYAM NEW (316857), review dialog correct, save produces loading-receipt-container with the logo image + 'Mayora United Home' text, no 'Sales Monitor', btn-loading-download-png present, and BURYAM stock remained 231/231 after save.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Login page heading", "issues": ["Minor: heading uses a <br /> so text content reads 'MAYORAUNITED HOME.' (no space) when queried; visually fine because of line break, but consider adding whitespace for accessibility/copy semantics."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Brand.jsx / BrandHeader.jsx / ReceiptExport.jsx correctly share a single logo asset (@/assets/logo.webp) - good DRY.",
+    "Consider adding role='banner' to <header> in BrandHeader for a11y (currently has data-testid but no landmark aria-label)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested (frontend-only request)", "frontend": "100%"},
+  "test_credentials": "Sales 277/12345 and admin password admin123 - both work.",
+  "seed_data_creation": "None. Used existing products with stock (DANCARE 370068 for penjualan, BURYAM NEW 316857 for loading). Stock verified unchanged post-save (Google Sheet read-only behavior intact).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 3 verified branding roll-out only. All data-testids used: login-logo, admin-login-logo, admin-logo, app-header, brand, receipt-container, loading-receipt-container, btn-download-png, btn-loading-download-png, btn-review-penjualan, btn-review-loading, btn-confirm-save, btn-plus-{kode}, btn-gudang-plus-{kode}, nav-dashboard/nav-penjualan/nav-loading. Backend untouched since iteration_2 (100%). Public URL: https://sales-dashboard-app-28.preview.emergentagent.com."
+}

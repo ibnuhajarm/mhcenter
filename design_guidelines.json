@@ -1,0 +1,109 @@
+{
+  "theme": "light",
+  "archetype": "The Performance Pro / High-Contrast Swiss",
+  "concept": "Operational Brutalism. A high-contrast, high-legibility field application designed for outdoor use (high glare) and quick numeric data entry by sales representatives. It focuses on sharp typography, solid borders, and clear numeric alignments instead of soft, generic corporate gradients.",
+  "typography": {
+    "font_families": {
+      "headings": "Cabinet Grotesk, sans-serif",
+      "body": "Manrope, sans-serif",
+      "monospace": "Space Mono, monospace"
+    },
+    "hierarchy": {
+      "h1": "text-3xl sm:text-4xl font-black tracking-tight",
+      "h2": "text-2xl sm:text-3xl font-bold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-bold tracking-tight",
+      "body": "text-base leading-relaxed text-zinc-900",
+      "numbers": "font-mono tracking-tight text-lg sm:text-xl font-bold",
+      "labels": "text-xs font-bold uppercase tracking-[0.1em] text-zinc-500"
+    },
+    "rules": [
+      "NEVER use generic Inter, Roboto, or Open Sans.",
+      "All numeric data (Stock Qty, Rupiah prices, totals) MUST use 'Space Mono' (or equivalent monospace) to ensure digits align vertically.",
+      "Use tight letter spacing for headings.",
+      "Labels must be uppercase, tiny, and widely tracked."
+    ]
+  },
+  "colors": {
+    "background": {
+      "main": "#F4F4F5", 
+      "surface": "#FFFFFF",
+      "receipt": "#FDFBF7"
+    },
+    "text": {
+      "primary": "#09090B",
+      "secondary": "#52525B",
+      "inverse": "#FFFFFF"
+    },
+    "brand": {
+      "primary": "#FF5A00",
+      "obsidian": "#09090B"
+    },
+    "status": {
+      "success": "#16A34A",
+      "warning": "#F59E0B",
+      "danger": "#DC2626"
+    },
+    "borders": {
+      "default": "#E4E4E7",
+      "dark": "#27272A"
+    },
+    "rules": [
+      "No muddy grays. Grays should be tinted slightly.",
+      "Primary actions (like 'Simpan/Checkout') should use Obsidian (#09090B) or vibrant Signal Orange (#FF5A00).",
+      "Stock positive indicators should be vibrant Green (#16A34A).",
+      "DO NOT use full-screen colored gradients. Use flat, solid color blocks."
+    ]
+  },
+  "visual_enhancers": {
+    "surface_strategy": "Grid Borders & Sharp Edges",
+    "borders": "1px solid borders (border-zinc-200) on all cards and containers to create a distinct, technical wireframe look.",
+    "shadows": "Minimal. Use sharp, hard shadows (e.g., shadow-[4px_4px_0px_#09090B]) for primary buttons to give a physical, tactile 'press' feel, replacing soft drop shadows.",
+    "border_radius": "Subtle roundness (rounded-md or max 8px). Do not use fully rounded pill shapes.",
+    "glassmorphism": "Avoid glassmorphism. This is a field app, solid backgrounds are required for clarity in sunlight."
+  },
+  "layouts": {
+    "grid_system": "Bento-style tight grids for the Dashboard. Use col-span-2 or col-span-4 to organize metrics (Area, Kode, Total Stok) tightly.",
+    "navigation": "Fixed bottom navigation bar for mobile (Dashboard, Penjualan, Loading).",
+    "spacing": "Dense but legible. Use p-4 or p-6 inside cards. Ample padding below lists to account for sticky bottom bars or FABs (Floating Action Buttons).",
+    "alignment": "Left-align product names and descriptions. Right-align prices and stock quantities to form a clear column for the eye."
+  },
+  "components_instructions": {
+    "cards": "Remove soft shadows. Use `border border-zinc-200 bg-white` with sharp corners.",
+    "buttons": "Tactile buttons. Active state should translate down slightly to mimic physical pushing (`active:translate-y-[2px]`).",
+    "inputs": "Shadcn UI inputs. Customize to have a solid background (`bg-zinc-50`), hard border, and bold text when focused.",
+    "receipt_export": "Create a specific hidden (or visually separated) container styled like a thermal receipt (monochrome, monospace font, dashed borders) specifically targeted by html2canvas for the PNG export.",
+    "product_list": "Each item should clearly display Name, current Stock as a badge (Green if > 10, Amber if <= 10, Red if 0), and a large +/- stepper for quantity input."
+  },
+  "media": {
+    "image_urls": [
+      {
+        "category": "login_background",
+        "url": "https://images.unsplash.com/photo-1772305336606-989a457ffbae?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NjV8MHwxfHNlYXJjaHwxfHx3YXJlaG91c2UlMjBpbnRlcmlvciUyMGFic3RyYWN0fGVufDB8fHx8MTc4Nzk3ODIwNXww&ixlib=rb-4.1.0&q=85",
+        "description": "Empty industrial warehouse with polished concrete floor to be used as a subtle, darkened background overlay on the login screen."
+      },
+      {
+        "category": "receipt_texture",
+        "url": "https://images.unsplash.com/photo-1647005039373-e8fff57b75f6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwyfHxyZWNlaXB0JTIwYWJzdHJhY3QlMjB0ZXh0dXJlfGVufDB8fHx8MTc4Nzk3ODIwNXww&ixlib=rb-4.1.0&q=85",
+        "description": "Close up of text on paper, can be used as a very faint watermark or texture on the exported PNG receipt."
+      }
+    ],
+    "icons": "Use Phosphor Icons (@phosphor-icons/react) in Duotone or Bold weights for clear, legible iconography."
+  },
+  "motion": {
+    "hover_states": "Quick, snappy color inversions. No slow fades.",
+    "click_states": "Physical press feedback (`active:scale-[0.98]`).",
+    "transitions": "Use specific transitions (`transition-transform`, `transition-colors`), NEVER `transition-all`."
+  },
+  "universal_guidelines": [
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "All interactive and key informational elements MUST include a `data-testid` attribute (e.g., `data-testid='btn-login'`).",
+    "Do NOT center align the app container. Left-align text naturally.",
+    "Do NOT use complete transparent backgrounds under content.",
+    "Use 'sonner' for toast notifications.",
+    "Ensure contrast is extremely high for outdoor visibility. Texts should pop against backgrounds."
+  ],
+  "accessibility": {
+    "contrast": "Text must meet minimum 4.5:1 APCA contrast ratio. White backgrounds with Zinc-950 text handles this easily.",
+    "tap_targets": "Ensure all buttons and inputs are at least 48px (h-12) tall for easy tapping in a mobile environment."
+  }
+}

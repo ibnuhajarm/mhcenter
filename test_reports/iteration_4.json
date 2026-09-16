@@ -1,0 +1,24 @@
+{
+  "summary": "Frontend-only re-test of iteration 4 bug fixes: (1) PNG download fix on Penjualan + Loading, (2) Dashboard stock list layout on mobile, (3) Red/navy color theme, (4) Regression on save-does-not-mutate-stock and branding. All 5 targeted areas PASS end-to-end via Playwright on public URL at 390x844 mobile viewport.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "ReceiptResult.jsx correctly pre-builds a PNG blob and exposes a real <a href=blob:... download=...png> so the user's tap is the actual save gesture — this is the correct fix for the mobile/preview-iframe programmatic click() suppression.",
+    "URL.revokeObjectURL is called only on unmount cleanup; if items change during the same mount the previous objUrl is not revoked (minor memory leak). Consider revoking the previous URL when a new one is generated.",
+    "Two DialogContent instances in the codebase warn: 'Missing Description or aria-describedby={undefined}' — a11y-only warning, not blocking."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested (frontend-only)", "frontend": "100%"},
+  "test_credentials": "Sales 277/12345 works. Admin admin123 not exercised this run.",
+  "seed_data_creation": "None. Used DANCARE 370068 (penjualan) and BURYAM NEW 316857 (loading). Stock qty unchanged after save (Google Sheet read-only).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Verified checks (all PASS):\n- Login MASUK button bg = rgb(225,20,20) = #E11414 (RED ok).\n- Active nav-dashboard bg = rgb(225,20,20) (RED ok).\n- Dashboard 'Nilai Stok' card bg = rgb(20,32,67) = #142043 (NAVY ok).\n- Penjualan bottom summary bar bg = rgb(20,32,67) (NAVY ok).\n- Dashboard stock rows: qty rendered FIRST on the left (data-testid=stock-qty-<kode>, li.x=18, qty.x=30, width=64, right-edge=94/390 fully visible on mobile). Stock list innerText contains NO 'Rp' — price successfully removed.\n- Grep confirmed zero remaining #FF5A00 occurrences in /app/frontend/src.\n- Penjualan flow (+1 DANCARE → Review → Simpan): data-testid=receipt-result renders, data-testid=receipt-image has src starting with 'blob:https://...'. data-testid=btn-download-png is an <A> tag with href='blob:...' and download='Penjualan-277-<ts>.png'. data-testid=btn-share-png present.\n- Loading flow (+1 BURYAM → Review → Simpan): same PASS; data-testid=btn-loading-download-png is <A> with blob: href + download='Loading-277-<ts>.png'. data-testid=btn-loading-share-png present.\n- Only success toast on save is 'Penjualan tersimpan' (legitimate transaction toast) — NO misleading 'Gambar tersimpan' toast is emitted since saveReceiptImage was removed.\n- After returning to /penjualan and /loading, product qty for DANCARE and gudang qty for BURYAM remain unchanged (2/2 and 231/231 respectively per iteration_3 baseline).\n- Brand header + logo still visible across pages (iteration_3 already validated).\nSelectors reference: data-testid=btn-login (login), inputs[0]=kode_sales, inputs[1]=password. nav-dashboard/nav-penjualan/nav-loading. btn-plus-<kode>/btn-gudang-plus-<kode>. btn-review-penjualan/btn-review-loading, btn-confirm-save. receipt-result, receipt-image, btn-download-png, btn-share-png, btn-loading-download-png, btn-loading-share-png. stock-qty-<kode>. Public URL: https://sales-dashboard-app-28.preview.emergentagent.com.",
+  "rca of the issue": "Original bug: previous code called saveReceiptImage() which built the canvas after async awaits then invoked link.click() programmatically. The user-activation token was consumed by the button click before the async work, so by the time the synthetic click fired, the browser (esp. Safari + sandboxed preview iframes) silently no-op'd the download while a success toast still ran. Fix (verified): ReceiptResult.jsx pre-computes the blob into an object URL as soon as the receipt mounts, then exposes a real <a href=blob:...  download=filename.png> that the USER taps directly — a genuine gesture that always downloads. Additionally it renders the PNG in an <img> for iOS 'long-press → Save Image' and a Web Share button for native gallery save. No more standalone 'Gambar tersimpan' toast."
+}

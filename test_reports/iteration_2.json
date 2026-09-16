@@ -1,0 +1,25 @@
+{
+  "summary": "Frontend E2E testing complete for Sales Monitor. Verified: (1) Sales login 277/12345 → dashboard. (2) /penjualan add-to-cart + Review dialog opens with all items (kode, nama, qty × harga, subtotal) and correct total. (3) Confirm save → landscape receipt (data-testid=receipt-container) with AREA/KODE/TOTAL text and PNG download button visible. (4) CRITICAL: Stock UNCHANGED after Penjualan save (315200: 3/3 → 3/3, 315486: 13/13 → 13/13). (5) /loading Review dialog + landscape loading-receipt-container with PNG download button. (6) CRITICAL: Gudang stock UNCHANGED after Loading save (315200: 223/223 → 223/223). Both stock-preservation flows work as required by the read-only Google Sheet requirement.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/backend/tests/backend_test.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Program Berjalan (buy-X-get-Y / potongan) could not be verified via UI: neither sales 277 nor 79 carries kode_produk 370072 or 370157 in their current stok_sales. calcLine() in Penjualan.jsx correctly reads p.program.beli/gratis/potongan_harga so logic is present, but a live end-to-end verification requires a sales assignment for one of these SKUs. Main agent may want to seed such data or map a bonus SKU to sales 277 for demo.",
+    "Penjualan.jsx line 158: subtitle text still says 'Stok akan otomatis berkurang saat kamu menambah qty.' — this is stale copy given stock no longer decreases on save. Update to reflect the new read-only behaviour to avoid confusing sales users.",
+    "Both Penjualan.jsx (line 218-222) and Loading.jsx qty inputs use parseInt with fallback; typing a non-numeric value clears the field. Minor UX only.",
+    "ReviewDialog does not focus-trap on open (uses shadcn Dialog which does), but 'Simpan' button is disabled state uses opacity-50 without spinner — acceptable."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (from iteration_1)", "frontend": "100% (all requested flows PASS)"},
+  "test_credentials": "sales 277/12345 (verified); backup 79/12345 (verified); admin admin123",
+  "seed_data_creation": "Created 1 TEST penjualan txn (sales 277: 315200 x1 + 315486 x1, total Rp 28.000) and 1 TEST loading txn (sales 79: 315200 x1, total Rp 10.000). Both saved successfully and stock did NOT change afterwards.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Frontend flows for Review dialog + landscape receipt + read-only stock behavior are green on preview URL. Program Berjalan visual verification blocked by data: no test sales carries kode 370072/370157. If needed, ask admin to reassign one of these SKUs to sales 277 in the source Google Sheet + resync, then re-test bonus_qty and diskon appearance in row + review dialog.",
+  "rca of the issue": "N/A"
+}
