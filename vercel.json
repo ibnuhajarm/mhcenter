@@ -1,0 +1,16 @@
+{
+  "buildCommand": "cd frontend && yarn build",
+  "outputDirectory": "frontend/build",
+  "framework": "create-react-app",
+  "functions": {
+    "backend/api/**/*.py": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/backend/api/index.py"
+    }
+  ]
+}
